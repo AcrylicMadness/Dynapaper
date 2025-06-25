@@ -1,0 +1,129 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CANCEL_ENCODING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "CLOSE_ERROR" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "DARK_MODE_WALLPAPER" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark Mode wallpaper"
+          }
+        }
+      }
+    },
+    "DRAG_OR_SELECT_IMAGE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag or select image file"
+          }
+        }
+      }
+    },
+    "Dynapaper" : {
+
+    },
+    "LIGHT_MODE_WALLPAPER" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light Mode wallpaper"
+          }
+        }
+      }
+    },
+    "MAKE_HEIC" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make wallpaper"
+          }
+        }
+      }
+    },
+    "Making heic" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encoding…"
+          }
+        }
+      }
+    },
+    "SWAP_IMAGES" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swap"
+          }
+        }
+      }
+    },
+    "WALLPAPER_SAVE_FIELD_LABEL" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save wallpaper as:"
+          }
+        }
+      }
+    },
+    "WALLPAPER_SAVE_FILENAME" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dynamic Wallpaper"
+          }
+        }
+      }
+    },
+    "WALLPAPER_SAVE_MESSAGE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a folder to save the wallpaper"
+          }
+        }
+      }
+    },
+    "WALLPAPER_SAVE_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save wallpaper"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
