@@ -40,6 +40,10 @@ class AprWallpaperViewModel: ObservableObject {
         }
     }
     
+    func swapImages() {
+        swap(&lightImage, &darkImage)
+    }
+    
     private func clearImage(forMode mode: AprWallpaperProccessor.Mode) {
         switch mode {
         case .light:

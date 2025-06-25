@@ -11,7 +11,16 @@ import SwiftUI
 struct DynapaperApp: App {
     var body: some Scene {
         WindowGroup {
-            AprWallpaperView()
+            if #available(macOS 15, *) {
+                AprWallpaperView()
+                    .containerBackground(
+                        .thinMaterial, for: .window
+                    )
+            } else {
+                AprWallpaperView()
+            }
+            
         }
+        .windowStyle(.hiddenTitleBar)
     }
 }

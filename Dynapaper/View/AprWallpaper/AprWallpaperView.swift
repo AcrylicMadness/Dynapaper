@@ -12,26 +12,134 @@ struct AprWallpaperView: View {
     @StateObject
     var viewModel = AprWallpaperViewModel()
     
+    @Environment(\.colorScheme)
+    var colorScheme
+
     var body: some View {
-        VStack {
-            if let error = viewModel.displayError {
-                Text(error.localizedDescription)
+        ZStack {
+            VStack {
+                HStack {
+                    Spacer()
+                    ImageField(
+                        image: $viewModel.darkImage,
+                        onLoadError: { error in
+                            viewModel.setError(error)
+                        }
+                    )
+                    .frame(width: 200, height: 120)
+                    Spacer()
+                    Button("Swap", action: {
+                        withAnimation {
+                            viewModel.swapImages()
+                        }
+                    })
+                    Spacer()
+                    ImageField(
+                        image: $viewModel.lightImage,
+                        onLoadError: { error in
+                            viewModel.setError(error)
+                        }
+                    )
+                    .frame(width: 200, height: 120)
+                    Spacer()
+                }
             }
-            HStack {
-                Spacer()
-                ImageField(
-                    image: $viewModel.lightImage,
-                    onLoadError: { error in
-                        viewModel.setError(error)
-                    }
-                )
-                .frame(width: 200, height: 120)
-                Spacer()
+            errorView
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background {
+            GeometryReader { geometry in
+                ZStack(alignment: .center) {
+                    darkImageBackground(withGeometry: geometry)
+                    lightImageBackground(withGeometry: geometry)
+                }
+                .ignoresSafeArea()
             }
         }
+        
+    }
+    
+    @ViewBuilder
+    func darkImageBackground(withGeometry geometry: GeometryProxy) -> some View {
+        Rectangle()
+            .fill(Color.clear)
+            .background {
+                if colorScheme == .light {
+                    Color.secondary.opacity(0.1)
+                }
+                if let darkImage = viewModel.darkImage {
+                    darkImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .overlay(.ultraThinMaterial)
+                        .transition(.opacity)
+                }
+            }
+            .reverseMask {
+                Circle()
+                    .fill(Color.black)
+                    .frame(width: geometry.size.width * 2, height: geometry.size.width * 2)
+                    .position(x: geometry.size.width * 1.5, y: geometry.size.height / 2)
+                    .blendMode(.destinationOut)
+            }
+    }
+    
+    @ViewBuilder
+    func lightImageBackground(withGeometry geometry: GeometryProxy) -> some View {
+        Rectangle()
+            .fill(Color.clear)
+            .background {
+                if colorScheme == .dark {
+                    Color.secondary.opacity(0.1)
+                }
+                if let lightImage = viewModel.lightImage {
+                    lightImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .overlay(.ultraThinMaterial)
+                        .transition(.opacity)
+                }
+            }
+            .mask {
+                Circle()
+                    .fill(Color.black)
+                    .frame(width: geometry.size.width * 2, height: geometry.size.width * 2)
+                    .position(x: geometry.size.width * 1.5, y: geometry.size.height / 2)
+            }
+    }
+    
+    @ViewBuilder
+    var errorView: some View {
+        VStack(alignment: .trailing) {
+            if let error = viewModel.displayError {
+                VStack(alignment: .leading) {
+                    Button("CLOSE_ERROR") {
+                        viewModel.setError(nil)
+                    }
+                    Text(error.localizedDescription)
+                        .font(.caption)
+                }
+                .padding()
+                .foregroundStyle(.white)
+                .background(Color.red)
+                .cornerRadius(8)
+                .transition(.move(edge: .trailing).combined(with: .blurReplace))
+            }
+            Spacer()
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .topTrailing
+        )
+        .padding()
     }
 }
 
 #Preview {
     AprWallpaperView()
+        .frame(width: 800, height: 600)
 }
+
