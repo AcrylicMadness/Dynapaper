@@ -23,7 +23,6 @@ class AprWallpaperProccessor {
         self.darkImage = darkImage
     }
     
-    @discardableResult
     func loadWallpaper(
         fromUrl wallpaperUrl: URL,
         forMode mode: Mode
@@ -32,7 +31,6 @@ class AprWallpaperProccessor {
         return try loadWallpaper(fromData: imageData, forMode: mode)
     }
     
-    @discardableResult
     func loadWallpaper(
         fromData imageData: Data,
         forMode mode: Mode
