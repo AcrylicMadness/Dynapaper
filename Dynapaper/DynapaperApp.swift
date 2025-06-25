@@ -11,7 +11,7 @@ import SwiftUI
 struct DynapaperApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AprWallpaperView()
         }
     }
 }

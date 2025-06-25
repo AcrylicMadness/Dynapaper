@@ -26,25 +26,31 @@ class AprWallpaperProccessor {
     func loadWallpaper(
         fromUrl wallpaperUrl: URL,
         forMode mode: Mode
-    ) throws -> Data {
+    ) throws {
         let imageData = try Data(contentsOf: wallpaperUrl)
-        return try loadWallpaper(fromData: imageData, forMode: mode)
+        try loadWallpaper(fromData: imageData, forMode: mode)
     }
     
     func loadWallpaper(
-        fromData imageData: Data,
+        fromData imageData: Data?,
         forMode mode: Mode
-    ) throws -> Data {
-        guard let image = NSImage(data: imageData) else {
+    ) throws {
+        guard let imageData, let image = NSImage(data: imageData) else {
             throw DynapaperError.nilImageData
         }
+        loadWallpaper(fromImage: image, forMode: mode)
+    }
+    
+    func loadWallpaper(
+        fromImage image: NSImage,
+        forMode mode: Mode
+    ) {
         switch mode {
         case .light:
             lightImage = image
         case .dark:
             darkImage = image
         }
-        return imageData
     }
     
     func makeHeif() throws -> Data {
