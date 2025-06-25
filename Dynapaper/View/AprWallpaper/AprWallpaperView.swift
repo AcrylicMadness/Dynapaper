@@ -59,7 +59,6 @@ struct AprWallpaperView: View {
                 .ignoresSafeArea()
             }
         }
-        
     }
     
     @ViewBuilder
@@ -110,19 +109,20 @@ struct AprWallpaperView: View {
                 if colorScheme == .light {
                     Color.secondary.opacity(0.1)
                 }
+                
                 if let darkImage = viewModel.darkImage {
                     darkImage
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .overlay(.ultraThinMaterial)
                         .transition(.opacity)
+                } else {
+                    DecorativeView(style: .moon, geometry: geometry)
+                        .transition(.blurReplace)
                 }
             }
             .reverseMask {
-                Circle()
-                    .fill(Color.black)
-                    .frame(width: geometry.size.width * 2, height: geometry.size.width * 2)
-                    .position(x: geometry.size.width * 1.5, y: geometry.size.height / 2)
+                circleMask(forGeometry: geometry)
                     .blendMode(.destinationOut)
             }
     }
@@ -143,34 +143,53 @@ struct AprWallpaperView: View {
                         .aspectRatio(contentMode: .fill)
                         .overlay(.ultraThinMaterial)
                         .transition(.opacity)
+                } else {
+                    DecorativeView(style: .sun, geometry: geometry)
+                        .transition(.blurReplace)
                 }
             }
             .mask {
-                Circle()
-                    .fill(Color.black)
-                    .frame(width: geometry.size.width * 2, height: geometry.size.width * 2)
-                    .position(x: geometry.size.width * 1.5, y: geometry.size.height / 2)
+                circleMask(forGeometry: geometry)
             }
     }
     
     @ViewBuilder
+    func circleMask(
+        forGeometry geometry: GeometryProxy
+    ) -> some View {
+        Circle()
+            .fill(Color.black)
+            .frame(width: geometry.size.width * 2, height: geometry.size.width * 2)
+            .position(x: geometry.size.width * 1.5, y: geometry.size.height / 2)
+    }
+    
+    // TODO: Move this to view modifier
+    @ViewBuilder
     var errorView: some View {
-        VStack(alignment: .trailing) {
+        VStack(alignment: .center) {
+            Spacer()
             if let error = viewModel.displayError {
-                VStack(alignment: .leading) {
+                HStack(alignment: .center) {
+                    Image(systemName: "xmark.app.fill")
+                        .foregroundStyle(.red)
+                    Text(error.localizedDescription)
+                        .font(.caption2)
+                    Spacer()
                     Button("CLOSE_ERROR") {
                         viewModel.setError(nil)
                     }
-                    Text(error.localizedDescription)
-                        .font(.caption)
                 }
-                .padding()
-                .foregroundStyle(.white)
-                .background(Color.red)
+                .padding(6)
+                .background {
+                    ZStack {
+                        Color(nsColor: .windowBackgroundColor)
+                        Color.red.opacity(0.2)
+                    }
+                }
                 .cornerRadius(8)
-                .transition(.move(edge: .trailing).combined(with: .blurReplace))
+                .transition(.move(edge: .bottom).combined(with: .blurReplace))
             }
-            Spacer()
+            
         }
         .frame(
             minWidth: 0,

@@ -112,7 +112,7 @@ class AprWallpaperViewModel: ObservableObject {
     }
     
     func setError(_ error: Error?) {
-        withAnimation {
+        withAnimation(.bouncy(duration: 0.3)) {
             self.displayError = error
         }
     }
