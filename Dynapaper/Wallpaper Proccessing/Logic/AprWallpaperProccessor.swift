@@ -1,0 +1,86 @@
+//
+//  AprWallpaperProccessor.swift
+//  Dynapaper
+//
+//  Created by Acrylic M on 25.06.2025.
+//
+
+import AppKit
+import Foundation
+import ImageIO
+
+class AprWallpaperProccessor {
+    var lightImage: NSImage?
+    var darkImage: NSImage?
+    
+    enum Mode: String, CaseIterable {
+        case light
+        case dark
+    }
+    
+    init(lightImage: NSImage? = nil, darkImage: NSImage? = nil) {
+        self.lightImage = lightImage
+        self.darkImage = darkImage
+    }
+    
+    @discardableResult
+    func loadWallpaper(
+        fromUrl wallpaperUrl: URL,
+        forMode mode: Mode
+    ) throws -> Data {
+        let imageData = try Data(contentsOf: wallpaperUrl)
+        return try loadWallpaper(fromData: imageData, forMode: mode)
+    }
+    
+    @discardableResult
+    func loadWallpaper(
+        fromData imageData: Data,
+        forMode mode: Mode
+    ) throws -> Data {
+        guard let image = NSImage(data: imageData) else {
+            throw DynapaperError.nilImageData
+        }
+        switch mode {
+        case .light:
+            lightImage = image
+        case .dark:
+            darkImage = image
+        }
+        return imageData
+    }
+    
+    func makeHeif() throws -> Data {
+        guard
+            let lightImage = lightImage?.cgImage(forProposedRect: nil, context: nil, hints: nil),
+            let darkImage = darkImage?.cgImage(forProposedRect: nil, context: nil, hints: nil)
+        else {
+            throw DynapaperError.imageForModeNotFound
+        }
+        
+        guard
+            let mutableData = CFDataCreateMutable(nil, 0),
+            let destination = CGImageDestinationCreateWithData(mutableData, "public.heic" as CFString, 2, nil)
+        else {
+            throw DynapaperError.failedToSetupExport
+        }
+
+        let metadata = try AprWallpaperMetadata().cgMetadata
+
+        CGImageDestinationAddImageAndMetadata(destination, lightImage, metadata, nil)
+        CGImageDestinationAddImage(destination, darkImage, nil)
+        
+        guard CGImageDestinationFinalize(destination) else {
+            throw DynapaperError.failedToExport
+        }
+        
+        return (mutableData as Data)
+    }
+}
+
+enum DynapaperError: Error {
+    case nilImageData
+    case imageForModeNotFound
+    case badMetadata
+    case failedToSetupExport
+    case failedToExport
+}

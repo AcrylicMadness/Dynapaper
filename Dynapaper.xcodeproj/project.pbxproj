@@ -195,6 +195,8 @@
 			);
 			mainGroup = 25B30EEE2DF989F600DD1B6B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 25B30EF82DF989F600DD1B6B /* Products */;
 			projectDirPath = "";
@@ -271,6 +273,8 @@
 /* Begin XCBuildConfiguration section */
 		25B30F172DF989F700DD1B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -335,6 +339,8 @@
 		};
 		25B30F182DF989F700DD1B6B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -391,10 +397,12 @@
 		};
 		25B30F1A2DF989F700DD1B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Dynapaper/Dynapaper.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Dynapaper/Resources/Dynapaper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -418,10 +426,12 @@
 		};
 		25B30F1B2DF989F700DD1B6B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Dynapaper/Dynapaper.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Dynapaper/Resources/Dynapaper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -445,6 +455,8 @@
 		};
 		25B30F1D2DF989F700DD1B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -463,6 +475,8 @@
 		};
 		25B30F1E2DF989F700DD1B6B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -481,6 +495,8 @@
 		};
 		25B30F202DF989F700DD1B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -497,6 +513,8 @@
 		};
 		25B30F212DF989F700DD1B6B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 25B30EF92DF989F600DD1B6B /* Dynapaper */;
+			baseConfigurationReferenceRelativePath = default.xcconfig;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
