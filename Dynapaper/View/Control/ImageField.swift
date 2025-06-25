@@ -24,7 +24,7 @@ struct ImageField: View {
     }
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 8)
+        Rectangle()
             .fill(Color.clear)
             .background {
                 if let image {

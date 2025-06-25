@@ -87,4 +87,5 @@ enum DynapaperError: Error {
     case badMetadata
     case failedToSetupExport
     case failedToExport
+    case exportCancelled
 }

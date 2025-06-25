@@ -18,32 +18,53 @@ struct AprWallpaperView: View {
     var body: some View {
         ZStack {
             VStack {
+                Text("Dynapaper")
+                    .font(.system(size: 50))
+                Spacer()
                 HStack {
                     Spacer()
-                    ImageField(
-                        image: $viewModel.darkImage,
-                        onLoadError: { error in
-                            viewModel.setError(error)
-                        }
+                    imageField(
+                        for: $viewModel.darkImage,
+                        title: "DARK_MODE_WALLPAPER"
                     )
-                    .frame(width: 200, height: 120)
+                    
                     Spacer()
-                    Button("Swap", action: {
+                    Button("SWAP_IMAGES", action: {
                         withAnimation {
                             viewModel.swapImages()
                         }
                     })
                     Spacer()
-                    ImageField(
-                        image: $viewModel.lightImage,
-                        onLoadError: { error in
-                            viewModel.setError(error)
-                        }
+                    imageField(
+                        for: $viewModel.lightImage,
+                        title: "LIGHT_MODE_WALLPAPER"
                     )
                     .frame(width: 200, height: 120)
                     Spacer()
                 }
+                Spacer()
+                if viewModel.isProcessing {
+                    Button("CANCEL_ENCODING", action: {
+                        viewModel.cancelEncoding()
+                    })
+                    HStack {
+                        ProgressView()
+                        Text("Making heic")
+                    }
+                } else {
+                    Button("MAKE_HEIC", action: {
+                        Task {
+                            await viewModel.makeHeic()
+                        }
+                    })
+                    .disabled(!viewModel.readyForHeic)
+                }
+                if viewModel.isProcessing {
+                    
+                }
+                Spacer()
             }
+            .padding(40)
             errorView
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -57,6 +78,23 @@ struct AprWallpaperView: View {
             }
         }
         
+    }
+    
+    @ViewBuilder
+    func imageField(
+        for image: Binding<Image?>,
+        title: LocalizedStringKey
+    ) -> some View {
+        VStack {
+            Text(title)
+            ImageField(
+                image: image,
+                onLoadError: { error in
+                    viewModel.setError(error)
+                }
+            )
+            .frame(width: 200, height: 120)
+        }
     }
     
     @ViewBuilder
