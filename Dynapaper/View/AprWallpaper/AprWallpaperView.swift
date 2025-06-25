@@ -43,25 +43,7 @@ struct AprWallpaperView: View {
                     Spacer()
                 }
                 Spacer()
-                if viewModel.isProcessing {
-                    Button("CANCEL_ENCODING", action: {
-                        viewModel.cancelEncoding()
-                    })
-                    HStack {
-                        ProgressView()
-                        Text("Making heic")
-                    }
-                } else {
-                    Button("MAKE_HEIC", action: {
-                        Task {
-                            await viewModel.makeHeic()
-                        }
-                    })
-                    .disabled(!viewModel.readyForHeic)
-                }
-                if viewModel.isProcessing {
-                    
-                }
+                encodeButtonContainer
                 Spacer()
             }
             .padding(40)
@@ -78,6 +60,27 @@ struct AprWallpaperView: View {
             }
         }
         
+    }
+    
+    @ViewBuilder
+    var encodeButtonContainer: some View {
+        // TODO: Make this look nice
+        if viewModel.isProcessing {
+            Button("CANCEL_ENCODING", action: {
+                viewModel.cancelEncoding()
+            })
+            HStack {
+                ProgressView()
+                Text("Making heic")
+            }
+        } else {
+            Button("MAKE_HEIC", action: {
+                Task {
+                    await viewModel.makeHeic()
+                }
+            })
+            .disabled(!viewModel.readyForHeic)
+        }
     }
     
     @ViewBuilder
@@ -98,7 +101,9 @@ struct AprWallpaperView: View {
     }
     
     @ViewBuilder
-    func darkImageBackground(withGeometry geometry: GeometryProxy) -> some View {
+    func darkImageBackground(
+        withGeometry geometry: GeometryProxy
+    ) -> some View {
         Rectangle()
             .fill(Color.clear)
             .background {
@@ -123,7 +128,9 @@ struct AprWallpaperView: View {
     }
     
     @ViewBuilder
-    func lightImageBackground(withGeometry geometry: GeometryProxy) -> some View {
+    func lightImageBackground(
+        withGeometry geometry: GeometryProxy
+    ) -> some View {
         Rectangle()
             .fill(Color.clear)
             .background {

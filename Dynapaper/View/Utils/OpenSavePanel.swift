@@ -9,17 +9,17 @@ import SwiftUI
 
 struct OpenSavePanel {
     
-    static func showSavePanel() -> URL? {
+    static func showSavePanel(nameSuggestion: String? = nil) -> URL? {
         let savePanel = NSSavePanel()
-//        savePanel.allowedFileTypes = ["heic"]
+        
         savePanel.allowedContentTypes = [.heic]
         savePanel.canCreateDirectories = true
         savePanel.isExtensionHidden = true
         savePanel.allowsOtherFileTypes = false
-        savePanel.title = "Save your text"
-        savePanel.message = "Choose a folder and a name to store your text."
-        savePanel.nameFieldLabel = "File name:"
-        savePanel.nameFieldStringValue = "Dynamic Wallpaper"
+        savePanel.title = String(localized: "WALLPAPER_SAVE_TITLE")
+        savePanel.message = String(localized: "WALLPAPER_SAVE_MESSAGE")
+        savePanel.nameFieldLabel = String(localized: "WALLPAPER_SAVE_FIELD_LABEL")
+        savePanel.nameFieldStringValue = nameSuggestion ?? String(localized: "WALLPAPER_SAVE_FILENAME")
         
         let response = savePanel.runModal()
         return response == .OK ? savePanel.url : nil
