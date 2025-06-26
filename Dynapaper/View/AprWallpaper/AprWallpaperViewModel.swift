@@ -69,10 +69,14 @@ class AprWallpaperViewModel: ObservableObject {
                 do {
                     let nsImage = try proccessor.loadWallpaper(fromUrl: urls[index], forMode: mode)
                     let image = Image(nsImage: nsImage)
-                    if mode == .light {
-                        lightImage = image
-                    } else {
-                        darkImage = image
+                    withAnimation(.bouncy(duration: 0.55)) {
+                        // FIXME: Fix double load
+                        // This toggles didSet, which loads the same images again
+                        if mode == .light {
+                            lightImage = image
+                        } else {
+                            darkImage = image
+                        }
                     }
                 } catch {
                     setError(error)

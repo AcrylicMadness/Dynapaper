@@ -19,7 +19,21 @@ struct DecorativeView: View {
     @State
     var geometry: GeometryProxy
     
-
+    @Environment(\.colorScheme)
+    var colorScheme
+    
+    var color: Color {
+        
+        if (colorScheme == .dark && style == .sun) {
+            return Color.black.opacity(0.2)
+        } else if (colorScheme == .light && style == .moon) {
+            return Color(nsColor: .controlColor).opacity(0.25)
+        } else {
+            return Color(nsColor: .secondarySystemFill).opacity(0.65)
+        }
+        
+    }
+    
     var body: some View {
         Image(systemName: style.rawValue)
             
@@ -30,7 +44,9 @@ struct DecorativeView: View {
                 height: imageSize.height
             )
             .position(imagePosition)
-            .opacity(0.1)
+//            .opacity(0.1)
+//            .foregroundStyle(Color.secondary.opacity(0.1))
+            .foregroundStyle(color)
             .fontWeight(.regular)
     }
     
@@ -48,6 +64,8 @@ struct DecorativeView: View {
             )
         }
     }
+    
+    
     
     private var imagePosition: CGPoint {
         switch style {
