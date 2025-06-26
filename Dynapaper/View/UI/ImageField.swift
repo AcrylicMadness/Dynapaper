@@ -16,6 +16,7 @@ struct ImageField: View {
     private var isTargeted: Bool = false
     
     var onLoadError: (Error) -> Void
+    var didSelectImageUrls: ([URL]) -> Void
     
     private let animation: Animation = .bouncy(duration: 0.55)
     
@@ -101,8 +102,9 @@ struct ImageField: View {
     func selectButton(fullSize: Bool, proxy: GeometryProxy) -> some View {
         Button(
             action: {
-                // TODO: Use NSOpenPanel to select image
-                print("Did click")
+                Task {
+                    didSelectImageUrls(await OpenSavePanel.showOpenPanel())
+                }
             },
             label: {
                 HStack {
@@ -132,6 +134,9 @@ struct ImageField: View {
                 Image("TestWallpaperLight")
             ),
             onLoadError: { _ in
+            },
+            didSelectImageUrls: { _ in
+                
             }
         )
         .frame(width: 200, height: 120)
@@ -140,6 +145,9 @@ struct ImageField: View {
                 nil
             ),
             onLoadError: { _ in
+            },
+            didSelectImageUrls: { _ in
+                
             }
         )
         .frame(width: 200, height: 120)

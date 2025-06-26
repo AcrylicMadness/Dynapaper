@@ -13,7 +13,7 @@ class AprWallpaperProccessor {
     var lightImage: NSImage?
     var darkImage: NSImage?
     
-    enum Mode: String, CaseIterable {
+    enum Mode: String, CaseIterable, Hashable {
         case light
         case dark
     }
@@ -26,19 +26,13 @@ class AprWallpaperProccessor {
     func loadWallpaper(
         fromUrl wallpaperUrl: URL,
         forMode mode: Mode
-    ) throws {
+    ) throws -> NSImage {
         let imageData = try Data(contentsOf: wallpaperUrl)
-        try loadWallpaper(fromData: imageData, forMode: mode)
-    }
-    
-    func loadWallpaper(
-        fromData imageData: Data?,
-        forMode mode: Mode
-    ) throws {
-        guard let imageData, let image = NSImage(data: imageData) else {
+        guard let image = NSImage(data: imageData) else {
             throw DynapaperError.nilImageData
         }
         loadWallpaper(fromImage: image, forMode: mode)
+        return image
     }
     
     func loadWallpaper(

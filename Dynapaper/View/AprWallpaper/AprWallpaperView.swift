@@ -25,7 +25,8 @@ struct AprWallpaperView: View {
                     Spacer()
                     imageField(
                         for: $viewModel.darkImage,
-                        title: "DARK_MODE_WALLPAPER"
+                        title: "DARK_MODE_WALLPAPER",
+                        mode: .dark
                     )
                     
                     Spacer()
@@ -37,7 +38,8 @@ struct AprWallpaperView: View {
                     Spacer()
                     imageField(
                         for: $viewModel.lightImage,
-                        title: "LIGHT_MODE_WALLPAPER"
+                        title: "LIGHT_MODE_WALLPAPER",
+                        mode: .light
                     )
                     .frame(width: 200, height: 120)
                     Spacer()
@@ -85,7 +87,8 @@ struct AprWallpaperView: View {
     @ViewBuilder
     func imageField(
         for image: Binding<Image?>,
-        title: LocalizedStringKey
+        title: LocalizedStringKey,
+        mode: AprWallpaperProccessor.Mode
     ) -> some View {
         VStack {
             Text(title)
@@ -93,6 +96,12 @@ struct AprWallpaperView: View {
                 image: image,
                 onLoadError: { error in
                     viewModel.setError(error)
+                },
+                didSelectImageUrls: { urls in
+                    viewModel.loadImages(
+                        fromUrls: urls,
+                        priorityMode: mode
+                    )
                 }
             )
             .frame(width: 200, height: 120)

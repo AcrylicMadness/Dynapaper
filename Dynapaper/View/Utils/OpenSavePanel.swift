@@ -9,7 +9,8 @@ import SwiftUI
 
 struct OpenSavePanel {
     
-    static func showSavePanel(nameSuggestion: String? = nil) -> URL? {
+    @MainActor
+    static func showSavePanel(nameSuggestion: String? = nil) async -> URL? {
         let savePanel = NSSavePanel()
         
         savePanel.allowedContentTypes = [.heic]
@@ -21,8 +22,18 @@ struct OpenSavePanel {
         savePanel.nameFieldLabel = String(localized: "WALLPAPER_SAVE_FIELD_LABEL")
         savePanel.nameFieldStringValue = nameSuggestion ?? String(localized: "WALLPAPER_SAVE_FILENAME")
         
-        let response = savePanel.runModal()
+        let response = await savePanel.beginSheetModal(for: NSApplication.shared.mainWindow!)
         return response == .OK ? savePanel.url : nil
     }
     
+    @MainActor
+    static func showOpenPanel() async -> [URL] {
+        let openPanel = NSOpenPanel()
+        openPanel.allowedContentTypes = [.image]
+        openPanel.allowsMultipleSelection = true
+        openPanel.canChooseDirectories = false
+        openPanel.canChooseFiles = true
+        let response = await openPanel.beginSheetModal(for: NSApplication.shared.mainWindow!)
+        return response == .OK ? openPanel.urls : []
+    }
 }

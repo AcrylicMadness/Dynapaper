@@ -54,6 +54,33 @@ class AprWallpaperViewModel: ObservableObject {
         swap(&lightImage, &darkImage)
     }
     
+    func loadImages(
+        fromUrls urls: [URL],
+        priorityMode: AprWallpaperProccessor.Mode
+    ) {
+        var modes = AprWallpaperProccessor.Mode.allCases
+        if let priorityIndex = modes.firstIndex(of: priorityMode) {
+            modes.remove(at: priorityIndex)
+            modes.insert(priorityMode, at: 0)
+        }
+        
+        for (index, mode) in modes.enumerated() {
+            if urls.indices.contains(index) {
+                do {
+                    let nsImage = try proccessor.loadWallpaper(fromUrl: urls[index], forMode: mode)
+                    let image = Image(nsImage: nsImage)
+                    if mode == .light {
+                        lightImage = image
+                    } else {
+                        darkImage = image
+                    }
+                } catch {
+                    setError(error)
+                }
+            }
+        }
+    }
+    
     func makeHeic() async {
         defer {
             isProcessing = false
@@ -70,7 +97,7 @@ class AprWallpaperViewModel: ObservableObject {
         do {
             let data = try await runEncodeTask()
             guard !(encodeTask?.isCancelled ?? false) else { return }
-            let destinationUrl = OpenSavePanel.showSavePanel()
+            let destinationUrl = await OpenSavePanel.showSavePanel()
             if let url = destinationUrl {
                 try data.write(to: url)
             }

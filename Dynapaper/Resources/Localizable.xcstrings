@@ -74,6 +74,46 @@
         }
       }
     },
+    "MENU_EDIT_CLEAR" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear Images"
+          }
+        }
+      }
+    },
+    "MENU_EDIT_SWAP" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swap Images"
+          }
+        }
+      }
+    },
+    "MENU_FILE_IMPORT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Images"
+          }
+        }
+      }
+    },
+    "MENU_FILE_SAVE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save Dynamic Wallpaper as…"
+          }
+        }
+      }
+    },
     "SWAP_IMAGES" : {
       "localizations" : {
         "en" : {

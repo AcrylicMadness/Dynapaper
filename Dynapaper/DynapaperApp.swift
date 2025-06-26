@@ -12,10 +12,13 @@ struct DynapaperApp: App {
     
     private let windowSize: CGSize = CGSize(width: 800, height: 500)
     
+    @StateObject
+    private var aprWallpaperViewModel = AprWallpaperViewModel()
+    
     var body: some Scene {
-        WindowGroup {
+        Window("Dynapaper", id: "dynapaper-window") {
             if #available(macOS 15, *) {
-                AprWallpaperView()
+                AprWallpaperView(viewModel: aprWallpaperViewModel)
                     .containerBackground(
                         .thinMaterial, for: .window
                     )
@@ -38,5 +41,54 @@ struct DynapaperApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
+        .commands {
+            CommandGroup(replacing: .saveItem) {
+                Button(
+                    "MENU_FILE_SAVE",
+                    action: {
+                        Task {
+                            await aprWallpaperViewModel.makeHeic()
+                        }
+                    }
+                )
+                .keyboardShortcut("S", modifiers: .command)
+                .disabled(!aprWallpaperViewModel.readyForHeic)
+            }
+            CommandGroup(before: .newItem) {
+                Button(
+                    "MENU_FILE_IMPORT",
+                    action: {
+                        Task {
+                            aprWallpaperViewModel.loadImages(
+                                fromUrls: await OpenSavePanel.showOpenPanel(),
+                                priorityMode: .dark
+                            )
+                        }
+                    }
+                )
+                .keyboardShortcut("A", modifiers: .command)
+            }
+            CommandGroup(replacing: .undoRedo) {
+                Button(
+                    "MENU_EDIT_CLEAR",
+                    action: {
+                        withAnimation {
+                            aprWallpaperViewModel.darkImage = nil
+                            aprWallpaperViewModel.lightImage = nil
+                        }
+                    }
+                )
+                .keyboardShortcut("K", modifiers: .command)
+                Button(
+                    "MENU_EDIT_SWAP",
+                    action: {
+                        withAnimation {
+                            aprWallpaperViewModel.swapImages()
+                        }
+                    }
+                )
+                .keyboardShortcut("E", modifiers: .command)
+            }
+        }
     }
 }
