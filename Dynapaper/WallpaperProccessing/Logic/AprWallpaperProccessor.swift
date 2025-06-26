@@ -23,15 +23,18 @@ class AprWallpaperProccessor {
         self.darkImage = darkImage
     }
     
-    func loadWallpaper(
+    func getNsImage(
         fromUrl wallpaperUrl: URL,
-        forMode mode: Mode
+        forMode mode: Mode,
+        shouldLoad: Bool
     ) throws -> NSImage {
         let imageData = try Data(contentsOf: wallpaperUrl)
         guard let image = NSImage(data: imageData) else {
             throw DynapaperError.nilImageData
         }
-        loadWallpaper(fromImage: image, forMode: mode)
+        if shouldLoad {
+            loadWallpaper(fromImage: image, forMode: mode)
+        }
         return image
     }
     

@@ -67,11 +67,13 @@ class AprWallpaperViewModel: ObservableObject {
         for (index, mode) in modes.enumerated() {
             if urls.indices.contains(index) {
                 do {
-                    let nsImage = try proccessor.loadWallpaper(fromUrl: urls[index], forMode: mode)
+                    let nsImage = try proccessor.getNsImage(
+                        fromUrl: urls[index],
+                        forMode: mode,
+                        shouldLoad: false
+                    )
                     let image = Image(nsImage: nsImage)
                     withAnimation(.bouncy(duration: 0.55)) {
-                        // FIXME: Fix double load
-                        // This toggles didSet, which loads the same images again
                         if mode == .light {
                             lightImage = image
                         } else {
