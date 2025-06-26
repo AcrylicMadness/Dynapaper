@@ -23,7 +23,6 @@ struct DecorativeView: View {
     var colorScheme
     
     var color: Color {
-        
         if (colorScheme == .dark && style == .sun) {
             return Color.black.opacity(0.2)
         } else if (colorScheme == .light && style == .moon) {
@@ -31,7 +30,6 @@ struct DecorativeView: View {
         } else {
             return Color(nsColor: .secondarySystemFill).opacity(0.65)
         }
-        
     }
     
     var body: some View {
@@ -44,8 +42,6 @@ struct DecorativeView: View {
                 height: imageSize.height
             )
             .position(imagePosition)
-//            .opacity(0.1)
-//            .foregroundStyle(Color.secondary.opacity(0.1))
             .foregroundStyle(color)
             .fontWeight(.regular)
     }
