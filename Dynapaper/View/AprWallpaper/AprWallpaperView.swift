@@ -44,6 +44,8 @@ struct AprWallpaperView: View {
                     .frame(width: 200, height: 120)
                     Spacer()
                 }
+                .opacity(viewModel.isProcessing ? 0.7 : 1)
+                .disabled(viewModel.isProcessing)
                 Spacer()
                 encodeButtonContainer
                 Spacer()
@@ -65,11 +67,14 @@ struct AprWallpaperView: View {
     
     @ViewBuilder
     var encodeButtonContainer: some View {
-        VStack {
+        VStack(spacing: 16) {
             // TODO: Make this look nice
             if viewModel.isProcessing {
-                ProgressView(label: { Text("MAKING_HEIC") })
-                    .controlSize(.small)
+                HStack {
+                    ProgressView()
+                        .controlSize(.small)
+                    Text("MAKING_HEIC")
+                }
                 Button("CANCEL_ENCODING", action: {
                     viewModel.cancelEncoding()
                 })
