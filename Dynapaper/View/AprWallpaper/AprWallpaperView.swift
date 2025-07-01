@@ -113,13 +113,13 @@ struct AprWallpaperView: View {
     }
     
     @ViewBuilder
-    func lightImageBackground(
+    func darkImageBackground(
         withGeometry geometry: GeometryProxy
     ) -> some View {
         Rectangle()
             .fill(Color.clear)
             .background {
-                if colorScheme == .dark {
+                if colorScheme == .light {
                     Color.secondary.opacity(0.1)
                 }
                 if let lightImage = viewModel.lightImage {
@@ -129,7 +129,7 @@ struct AprWallpaperView: View {
                         .overlay(.ultraThinMaterial)
                         .transition(.opacity)
                 } else {
-                    DecorativeView(style: .sun, geometry: geometry)
+                    DecorativeView(style: .moon, geometry: geometry)
                         .transition(.blurReplace)
                 }
             }
@@ -140,13 +140,13 @@ struct AprWallpaperView: View {
     }
     
     @ViewBuilder
-    func darkImageBackground(
+    func lightImageBackground(
         withGeometry geometry: GeometryProxy
     ) -> some View {
         Rectangle()
             .fill(Color.clear)
             .background {
-                if colorScheme == .light {
+                if colorScheme == .dark {
                     Color.secondary.opacity(0.1)
                 }
                 if let darkImage = viewModel.darkImage {
@@ -156,7 +156,7 @@ struct AprWallpaperView: View {
                         .overlay(.ultraThinMaterial)
                         .transition(.opacity)
                 } else {
-                    DecorativeView(style: .moon, geometry: geometry)
+                    DecorativeView(style: .sun, geometry: geometry)
                         .transition(.blurReplace)
                 }
             }
@@ -172,7 +172,10 @@ struct AprWallpaperView: View {
         Circle()
             .fill(Color.black)
             .frame(width: geometry.size.width * 2, height: geometry.size.width * 2)
-            .position(x: geometry.size.width * 1.5, y: geometry.size.height / 2)
+            .position(
+                x: geometry.size.width - geometry.size.width * 1.5,
+                y: geometry.size.height / 2
+            )
     }
     
     // TODO: Move this to view modifier
