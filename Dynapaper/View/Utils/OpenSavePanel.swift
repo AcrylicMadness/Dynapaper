@@ -22,7 +22,11 @@ struct OpenSavePanel {
         savePanel.nameFieldLabel = String(localized: "WALLPAPER_SAVE_FIELD_LABEL")
         savePanel.nameFieldStringValue = nameSuggestion ?? String(localized: "WALLPAPER_SAVE_FILENAME")
         
-        let response = await savePanel.beginSheetModal(for: NSApplication.shared.mainWindow!)
+        guard let appWindow = NSApplication.shared.windows.first else {
+            return nil
+        }
+        
+        let response = await savePanel.beginSheetModal(for: appWindow)
         return response == .OK ? savePanel.url : nil
     }
     
