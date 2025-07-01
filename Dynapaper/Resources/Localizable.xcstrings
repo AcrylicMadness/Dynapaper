@@ -42,7 +42,14 @@
       }
     },
     "Dynapaper" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dynapaper"
+          }
+        }
+      }
     },
     "LIGHT_MODE_WALLPAPER" : {
       "localizations" : {
@@ -64,12 +71,12 @@
         }
       }
     },
-    "Making heic" : {
+    "MAKING_HEIC" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Encoding…"
+            "value" : "Encoding wallpaper…"
           }
         }
       }

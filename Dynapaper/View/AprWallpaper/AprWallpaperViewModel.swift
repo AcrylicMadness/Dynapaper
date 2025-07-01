@@ -85,7 +85,7 @@ class AprWallpaperViewModel: ObservableObject {
     
     func makeHeic() async {
         defer {
-            isProcessing = false
+            setProccessing(false)
         }
         
         encodeTask?.cancel()
@@ -94,12 +94,11 @@ class AprWallpaperViewModel: ObservableObject {
             return try await self.proccessor.makeHeif()
         }
         
-        isProcessing = true
+        setProccessing(true)
         
         do {
             let data = try await runEncodeTask()
             guard
-                !(encodeTask?.isCancelled ?? false),
                 let destinationUrl = await OpenSavePanel.showSavePanel()
             else {
                 throw DynapaperError.exportCancelled
@@ -117,7 +116,7 @@ class AprWallpaperViewModel: ObservableObject {
     
     func cancelEncoding() {
         encodeTask?.cancel()
-        isProcessing = false
+        setProccessing(false)
     }
     
     func setError(_ error: Error?) {
@@ -175,5 +174,11 @@ class AprWallpaperViewModel: ObservableObject {
     
     private func updateReadyStatus() {
         readyForHeic = lightImage != nil && darkImage != nil
+    }
+    
+    private func setProccessing(_ priccessing: Bool) {
+        withAnimation(.easeIn(duration: 0.1)) {
+            isProcessing = priccessing
+        }
     }
 }

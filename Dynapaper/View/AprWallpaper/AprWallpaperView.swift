@@ -65,17 +65,15 @@ struct AprWallpaperView: View {
     
     @ViewBuilder
     var encodeButtonContainer: some View {
-        // TODO: Make this look nice
-        if viewModel.isProcessing {
-            Button("CANCEL_ENCODING", action: {
-                viewModel.cancelEncoding()
-            })
-            HStack {
-                ProgressView()
-                Text("Making heic")
-            }
-        } else {
-            VStack {
+        VStack {
+            // TODO: Make this look nice
+            if viewModel.isProcessing {
+                ProgressView(label: { Text("MAKING_HEIC") })
+                    .controlSize(.small)
+                Button("CANCEL_ENCODING", action: {
+                    viewModel.cancelEncoding()
+                })
+            } else { 
                 Toggle(
                     "SET_ON_COMPLETE",
                     isOn: $viewModel.setWallpaperOnComplete
