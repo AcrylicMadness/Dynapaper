@@ -61,8 +61,7 @@ struct DynapaperApp: App {
                     action: {
                         Task {
                             aprWallpaperViewModel.loadImages(
-                                fromUrls: await OpenSavePanel.showOpenPanel(),
-                                priorityMode: .dark
+                                fromUrls: await OpenSavePanel.showOpenPanel()
                             )
                         }
                     }

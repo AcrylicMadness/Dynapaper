@@ -48,7 +48,7 @@ class AprWallpaperViewModel: ObservableObject {
     // MARK: Interface
     func loadImages(
         fromUrls urls: [URL],
-        priorityMode: AprWallpaperProccessor.Mode
+        priorityMode: AprWallpaperProccessor.Mode = .light
     ) {
         var modes = AprWallpaperProccessor.Mode.allCases
         if let priorityIndex = modes.firstIndex(of: priorityMode) {

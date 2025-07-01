@@ -41,9 +41,11 @@ struct DecorativeView: View {
                 width: imageSize.width,
                 height: imageSize.height
             )
+            .scaleEffect(x: style == .moon ? -1 : 1, y: 1)
             .position(imagePosition)
             .foregroundStyle(color)
             .fontWeight(.regular)
+            
     }
     
     private var imageSize: CGSize {
@@ -67,12 +69,12 @@ struct DecorativeView: View {
         switch style {
         case .sun:
             return CGPoint(
-                x: geometry.size.width - 40,
+                x: 40,
                 y: 50
             )
         case .moon:
             return CGPoint(
-                x: 100,
+                x: geometry.size.width - 100,
                 y: geometry.size.height - 70
             )
         }

@@ -24,11 +24,10 @@ struct AprWallpaperView: View {
                 HStack {
                     Spacer()
                     imageField(
-                        for: $viewModel.darkImage,
-                        title: "DARK_MODE_WALLPAPER",
-                        mode: .dark
+                        for: $viewModel.lightImage,
+                        title: "LIGHT_MODE_WALLPAPER",
+                        mode: .light
                     )
-                    
                     Spacer()
                     Button("SWAP_IMAGES", action: {
                         withAnimation {
@@ -37,10 +36,11 @@ struct AprWallpaperView: View {
                     })
                     Spacer()
                     imageField(
-                        for: $viewModel.lightImage,
-                        title: "LIGHT_MODE_WALLPAPER",
-                        mode: .light
+                        for: $viewModel.darkImage,
+                        title: "DARK_MODE_WALLPAPER",
+                        mode: .dark
                     )
+                    
                     .frame(width: 200, height: 120)
                     Spacer()
                 }
@@ -113,34 +113,6 @@ struct AprWallpaperView: View {
     }
     
     @ViewBuilder
-    func darkImageBackground(
-        withGeometry geometry: GeometryProxy
-    ) -> some View {
-        Rectangle()
-            .fill(Color.clear)
-            .background {
-                if colorScheme == .light {
-                    Color.secondary.opacity(0.1)
-                }
-                
-                if let darkImage = viewModel.darkImage {
-                    darkImage
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .overlay(.ultraThinMaterial)
-                        .transition(.opacity)
-                } else {
-                    DecorativeView(style: .moon, geometry: geometry)
-                        .transition(.blurReplace)
-                }
-            }
-            .reverseMask {
-                circleMask(forGeometry: geometry)
-                    .blendMode(.destinationOut)
-            }
-    }
-    
-    @ViewBuilder
     func lightImageBackground(
         withGeometry geometry: GeometryProxy
     ) -> some View {
@@ -158,6 +130,33 @@ struct AprWallpaperView: View {
                         .transition(.opacity)
                 } else {
                     DecorativeView(style: .sun, geometry: geometry)
+                        .transition(.blurReplace)
+                }
+            }
+            .reverseMask {
+                circleMask(forGeometry: geometry)
+                    .blendMode(.destinationOut)
+            }
+    }
+    
+    @ViewBuilder
+    func darkImageBackground(
+        withGeometry geometry: GeometryProxy
+    ) -> some View {
+        Rectangle()
+            .fill(Color.clear)
+            .background {
+                if colorScheme == .light {
+                    Color.secondary.opacity(0.1)
+                }
+                if let darkImage = viewModel.darkImage {
+                    darkImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .overlay(.ultraThinMaterial)
+                        .transition(.opacity)
+                } else {
+                    DecorativeView(style: .moon, geometry: geometry)
                         .transition(.blurReplace)
                 }
             }
