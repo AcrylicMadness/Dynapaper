@@ -41,6 +41,7 @@ struct DynapaperApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
+        // TODO: Refactor menu bar commands
         .commands {
             CommandGroup(replacing: .saveItem) {
                 Button(

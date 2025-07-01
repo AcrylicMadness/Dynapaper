@@ -114,6 +114,16 @@
         }
       }
     },
+    "SET_ON_COMPLETE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set as wallpaper when done"
+          }
+        }
+      }
+    },
     "SWAP_IMAGES" : {
       "localizations" : {
         "en" : {

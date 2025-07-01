@@ -78,6 +78,7 @@ class AprWallpaperProccessor {
     }
 }
 
+// TODO: Sort out errors
 enum DynapaperError: Error {
     case nilImageData
     case imageForModeNotFound

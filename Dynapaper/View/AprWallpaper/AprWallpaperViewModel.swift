@@ -10,6 +10,12 @@ import SwiftUI
 @MainActor
 class AprWallpaperViewModel: ObservableObject {
     
+    enum AprVMError: Error {
+        case failedToGetMainScreen
+    }
+    
+    // MARK: - Properties
+    
     @Published
     var lightImage: Image? {
         didSet {
@@ -25,10 +31,13 @@ class AprWallpaperViewModel: ObservableObject {
     }
     
     @Published
-    var readyForHeic: Bool = false
+    var setWallpaperOnComplete: Bool = false
     
     @Published
-    var isProcessing: Bool = false
+    private(set) var readyForHeic: Bool = false
+    
+    @Published
+    private(set) var isProcessing: Bool = false
     
     @Published
     private(set) var displayError: Error?
@@ -36,24 +45,7 @@ class AprWallpaperViewModel: ObservableObject {
     private let proccessor = AprWallpaperProccessor()
     private var encodeTask: Task<Data, any Error>?
     
-    private func loadImage(forMode mode: AprWallpaperProccessor.Mode) {
-        defer {
-            updateReadyStatus()
-        }
-        if let imageToLoad = (mode == .light ? lightImage : darkImage) {
-            guard let nsImage = ImageRenderer(content: imageToLoad).nsImage else {
-                displayError = DynapaperError.nilImageData
-                clearImage(forMode: mode)
-                return
-            }
-            proccessor.loadWallpaper(fromImage: nsImage, forMode: mode)
-        }
-    }
-    
-    func swapImages() {
-        swap(&lightImage, &darkImage)
-    }
-    
+    // MARK: Interface
     func loadImages(
         fromUrls urls: [URL],
         priorityMode: AprWallpaperProccessor.Mode
@@ -87,6 +79,10 @@ class AprWallpaperViewModel: ObservableObject {
         }
     }
     
+    func swapImages() {
+        swap(&lightImage, &darkImage)
+    }
+    
     func makeHeic() async {
         defer {
             isProcessing = false
@@ -102,10 +98,15 @@ class AprWallpaperViewModel: ObservableObject {
         
         do {
             let data = try await runEncodeTask()
-            guard !(encodeTask?.isCancelled ?? false) else { return }
-            let destinationUrl = await OpenSavePanel.showSavePanel()
-            if let url = destinationUrl {
-                try data.write(to: url)
+            guard
+                !(encodeTask?.isCancelled ?? false),
+                let destinationUrl = await OpenSavePanel.showSavePanel()
+            else {
+                throw DynapaperError.exportCancelled
+            }
+            try data.write(to: destinationUrl)
+            if setWallpaperOnComplete {
+                try setDesktopWallpaper(url: destinationUrl)
             }
         } catch {
             if !(error as? DynapaperError == DynapaperError.exportCancelled) {
@@ -117,6 +118,38 @@ class AprWallpaperViewModel: ObservableObject {
     func cancelEncoding() {
         encodeTask?.cancel()
         isProcessing = false
+    }
+    
+    func setError(_ error: Error?) {
+        withAnimation(.bouncy(duration: 0.3)) {
+            self.displayError = error
+        }
+    }
+    
+    // MARK: Private Logic
+    private func loadImage(forMode mode: AprWallpaperProccessor.Mode) {
+        defer {
+            updateReadyStatus()
+        }
+        if let imageToLoad = (mode == .light ? lightImage : darkImage) {
+            guard let nsImage = ImageRenderer(content: imageToLoad).nsImage else {
+                displayError = DynapaperError.nilImageData
+                clearImage(forMode: mode)
+                return
+            }
+            proccessor.loadWallpaper(fromImage: nsImage, forMode: mode)
+        }
+    }
+    
+    private func setDesktopWallpaper(url: URL) throws {
+        guard let screen = NSScreen.main else {
+            throw AprVMError.failedToGetMainScreen
+        }
+        try NSWorkspace.shared.setDesktopImageURL(
+            url,
+            for: screen,
+            options: [:]
+        )
     }
     
     private func runEncodeTask() async throws -> Data {
@@ -142,11 +175,5 @@ class AprWallpaperViewModel: ObservableObject {
     
     private func updateReadyStatus() {
         readyForHeic = lightImage != nil && darkImage != nil
-    }
-    
-    func setError(_ error: Error?) {
-        withAnimation(.bouncy(duration: 0.3)) {
-            self.displayError = error
-        }
     }
 }

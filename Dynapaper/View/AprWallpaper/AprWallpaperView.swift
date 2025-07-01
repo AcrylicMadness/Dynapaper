@@ -75,12 +75,18 @@ struct AprWallpaperView: View {
                 Text("Making heic")
             }
         } else {
-            Button("MAKE_HEIC", action: {
-                Task {
-                    await viewModel.makeHeic()
-                }
-            })
-            .disabled(!viewModel.readyForHeic)
+            VStack {
+                Toggle(
+                    "SET_ON_COMPLETE",
+                    isOn: $viewModel.setWallpaperOnComplete
+                )
+                Button("MAKE_HEIC", action: {
+                    Task {
+                        await viewModel.makeHeic()
+                    }
+                })
+                .disabled(!viewModel.readyForHeic)
+            }
         }
     }
     
