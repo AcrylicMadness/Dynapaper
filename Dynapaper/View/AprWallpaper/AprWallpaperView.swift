@@ -127,8 +127,8 @@ struct AprWallpaperView: View {
                 if colorScheme == .light {
                     Color.secondary.opacity(0.1)
                 }
-                if let lightImage = viewModel.lightImage {
-                    lightImage
+                if let darkImage = viewModel.darkImage {
+                    darkImage
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .overlay(.ultraThinMaterial)
@@ -154,8 +154,8 @@ struct AprWallpaperView: View {
                 if colorScheme == .dark {
                     Color.secondary.opacity(0.1)
                 }
-                if let darkImage = viewModel.darkImage {
-                    darkImage
+                if let lightImage = viewModel.lightImage {
+                    lightImage
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .overlay(.ultraThinMaterial)
