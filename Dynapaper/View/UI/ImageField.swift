@@ -128,28 +128,15 @@ struct ImageField: View {
 }
 
 #Preview {
-    HStack {
-        ImageField(
-            image: .constant(
-                Image("TestWallpaperLight")
-            ),
-            onLoadError: { _ in
-            },
-            didSelectImageUrls: { _ in
-                
-            }
-        )
-        .frame(width: 200, height: 120)
-        ImageField(
-            image: .constant(
-                nil
-            ),
-            onLoadError: { _ in
-            },
-            didSelectImageUrls: { _ in
-                
-            }
-        )
-        .frame(width: 200, height: 120)
-    }
+    ImageField(
+        image: .constant(
+            nil
+        ),
+        onLoadError: { _ in
+        },
+        didSelectImageUrls: { _ in
+            
+        }
+    )
+    .frame(width: 200, height: 120)
 }

@@ -132,6 +132,7 @@
       }
     },
     "SWAP_IMAGES" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

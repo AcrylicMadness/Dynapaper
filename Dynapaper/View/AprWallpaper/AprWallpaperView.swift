@@ -29,11 +29,18 @@ struct AprWallpaperView: View {
                         mode: .light
                     )
                     Spacer()
-                    Button("SWAP_IMAGES", action: {
-                        withAnimation {
-                            viewModel.swapImages()
+                    Button(
+                        action: {
+                            withAnimation {
+                                viewModel.swapImages()
+                            }
+                        },
+                        label: {
+                            Image(systemName: "arrow.left.arrow.right")
+                                .font(.system(size: 16))
+                                .padding(6)
                         }
-                    })
+                    )
                     Spacer()
                     imageField(
                         for: $viewModel.darkImage,
@@ -63,6 +70,7 @@ struct AprWallpaperView: View {
                 .ignoresSafeArea()
             }
         }
+        .windowDrag()
     }
     
     @ViewBuilder
@@ -89,6 +97,7 @@ struct AprWallpaperView: View {
                     }
                 })
                 .disabled(!viewModel.readyForHeic)
+                .keyboardShortcut(.defaultAction)
             }
         }
     }
