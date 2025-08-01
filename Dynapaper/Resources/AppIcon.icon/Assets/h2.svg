@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="359px" height="722px" viewBox="0 0 359 722" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Rectangle</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy" transform="translate(-561, -100)" fill="#FFFFFF">
+            <path d="M561,100 L708.479471,100 C782.029767,100 808.700882,107.658113 835.589771,122.038448 C862.478659,136.418783 883.581217,157.521341 897.961552,184.410229 C912.341887,211.299118 920,237.970233 920,311.520529 L920,610.479471 C920,684.029767 912.341887,710.700882 897.961552,737.589771 C883.581217,764.478659 862.478659,785.581217 835.589771,799.961552 C808.700882,814.341887 782.029767,822 708.479471,822 L561,822 L561,822 L561,100 Z" id="Rectangle" transform="translate(740.5, 461) scale(-1, 1) translate(-740.5, -461)"></path>
+        </g>
+    </g>
+</svg>
