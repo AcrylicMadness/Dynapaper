@@ -131,17 +131,6 @@
         }
       }
     },
-    "SWAP_IMAGES" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Swap"
-          }
-        }
-      }
-    },
     "WALLPAPER_SAVE_FIELD_LABEL" : {
       "localizations" : {
         "en" : {
