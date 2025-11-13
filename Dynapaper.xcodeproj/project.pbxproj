@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		48F5E0182EC5D9A600F154CF /* PrivacyPolicy.md in Sources */ = {isa = PBXBuildFile; fileRef = 48F5E0172EC5D99F00F154CF /* PrivacyPolicy.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		25B30F062DF989F700DD1B6B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		25B30EF72DF989F600DD1B6B /* Dynapaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dynapaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25B30F052DF989F700DD1B6B /* DynapaperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynapaperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25B30F0F2DF989F700DD1B6B /* DynapaperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynapaperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		48F5E0172EC5D99F00F154CF /* PrivacyPolicy.md */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicy.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -88,6 +93,7 @@
 		25B30EEE2DF989F600DD1B6B = {
 			isa = PBXGroup;
 			children = (
+				48F5E0172EC5D99F00F154CF /* PrivacyPolicy.md */,
 				25B30EF92DF989F600DD1B6B /* Dynapaper */,
 				25B30F082DF989F700DD1B6B /* DynapaperTests */,
 				25B30F122DF989F700DD1B6B /* DynapaperUITests */,
@@ -251,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48F5E0182EC5D9A600F154CF /* PrivacyPolicy.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
