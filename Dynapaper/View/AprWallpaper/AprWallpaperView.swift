@@ -41,6 +41,10 @@ struct AprWallpaperView: View {
                                 .padding(6)
                         }
                     )
+                    .compatibleGlassStyle(
+                        isProminent: false,
+                        fallbackStyle: PlainButtonStyle()
+                    )
                     Spacer()
                     imageField(
                         for: $viewModel.darkImage,
@@ -68,6 +72,7 @@ struct AprWallpaperView: View {
                     lightImageBackground(withGeometry: geometry)
                 }
                 .ignoresSafeArea()
+                .opacity(0.5)
             }
         }
         .windowDrag()
@@ -96,6 +101,10 @@ struct AprWallpaperView: View {
                         await viewModel.makeHeic()
                     }
                 })
+                .compatibleGlassStyle(
+                    isProminent: true,
+                    fallbackStyle: BorderedProminentButtonStyle()
+                )
                 .disabled(!viewModel.readyForHeic)
                 .keyboardShortcut(.defaultAction)
             }

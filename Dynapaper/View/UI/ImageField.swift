@@ -86,15 +86,22 @@ struct ImageField: View {
                 }
             },
             label: {
-                Image(systemName: "trash")
-                    .symbolVariant(.fill)
-                    .padding(4)
-                    .background(.regularMaterial)
-                    .cornerRadius(6)
+                if #available(macOS 26, *) {
+                    Image(systemName: "trash")
+                } else {
+                    Image(systemName: "trash")
+                        .symbolVariant(.fill)
+                        .padding(4)
+                        .background(.regularMaterial)
+                        .cornerRadius(6)
+                }
             }
         )
+        .compatibleGlassStyle(
+            isProminent: false,
+            fallbackStyle: PlainButtonStyle()
+        )
         .padding(4)
-        .buttonStyle(.plain)
         .transition(.move(edge: .leading))
     }
     
@@ -107,23 +114,37 @@ struct ImageField: View {
                 }
             },
             label: {
-                HStack {
-                    Spacer()
-                    HStack(alignment: .firstTextBaseline, spacing: 2) {
-                        Image(systemName: "plus")
-                            .symbolVariant(.circle.fill)
-                        Text("DRAG_OR_SELECT_IMAGE")
-                    }
-                    .font(.caption2)
-                    Spacer()
+                if #available(macOS 26, *) {
+                    selectButtonLabel(fullSize: fullSize, proxy: proxy)
+                        .glassEffect(.regular, in: .rect(cornerRadius: 8))
+                } else {
+                    selectButtonLabel(fullSize: fullSize, proxy: proxy)
+                        .background(.regularMaterial)
                 }
-                .frame(minHeight: fullSize ? proxy.size.height : 0)
-                .padding(4)
-                .background(.regularMaterial)
             }
         )
         .contentShape(Rectangle())
         .buttonStyle(.plain)
+    }
+    
+    @ViewBuilder
+    func selectButtonLabel(fullSize: Bool, proxy: GeometryProxy) -> some View {
+        HStack {
+            Spacer()
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Image(systemName: "plus")
+                    .symbolVariant(.circle.fill)
+                Text("DRAG_OR_SELECT_IMAGE")
+            }
+            .font(.caption2)
+            Spacer()
+        }
+        .frame(minHeight: fullSize ? proxy.size.height : 0)
+        .padding(4)
+        .background {
+            Color(nsColor: .secondarySystemFill)
+                .opacity(fullSize ? 1 : 0)
+        }
     }
 }
 

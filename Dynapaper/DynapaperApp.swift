@@ -15,27 +15,26 @@ struct DynapaperApp: App {
     @StateObject
     private var aprWallpaperViewModel = AprWallpaperViewModel()
     
+    @ViewBuilder
+    private var aprWallpaperView: some View {
+        AprWallpaperView(viewModel: aprWallpaperViewModel)
+            .frame(
+                minWidth: windowSize.width,
+                maxWidth: windowSize.width,
+                minHeight: windowSize.height,
+                maxHeight: windowSize.height
+            )
+    }
+    
     var body: some Scene {
         Window("Dynapaper", id: "dynapaper-window") {
             if #available(macOS 15, *) {
-                AprWallpaperView(viewModel: aprWallpaperViewModel)
+                aprWallpaperView
                     .containerBackground(
-                        .thinMaterial, for: .window
-                    )
-                    .frame(
-                        minWidth: windowSize.width,
-                        maxWidth: windowSize.width,
-                        minHeight: windowSize.height,
-                        maxHeight: windowSize.height
+                        .ultraThinMaterial, for: .window
                     )
             } else {
-                AprWallpaperView()
-                    .frame(
-                        minWidth: windowSize.width,
-                        maxWidth: windowSize.width,
-                        minHeight: windowSize.height,
-                        maxHeight: windowSize.height
-                    )
+                aprWallpaperView
             }
             
         }
