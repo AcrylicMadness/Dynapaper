@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		48F5E0182EC5D9A600F154CF /* PrivacyPolicy.md in Sources */ = {isa = PBXBuildFile; fileRef = 48F5E0172EC5D99F00F154CF /* PrivacyPolicy.md */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		25B30F062DF989F700DD1B6B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -257,7 +253,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48F5E0182EC5D9A600F154CF /* PrivacyPolicy.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
