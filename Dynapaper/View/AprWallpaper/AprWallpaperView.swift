@@ -105,6 +105,7 @@ struct AprWallpaperView: View {
                     isProminent: true,
                     fallbackStyle: BorderedProminentButtonStyle()
                 )
+                .foregroundStyle(viewModel.readyForHeic ? .white : .gray)
                 .disabled(!viewModel.readyForHeic)
                 .keyboardShortcut(.defaultAction)
             }
