@@ -43,49 +43,37 @@ struct DynapaperApp: App {
         // TODO: Refactor menu bar commands
         .commands {
             CommandGroup(replacing: .saveItem) {
-                Button(
-                    "MENU_FILE_SAVE",
-                    action: {
-                        Task {
-                            await aprWallpaperViewModel.makeHeic()
-                        }
+                Button("MENU_FILE_SAVE", systemImage: "square.and.arrow.down") {
+                    Task {
+                        await aprWallpaperViewModel.makeHeic()
                     }
-                )
+                }
                 .keyboardShortcut("S", modifiers: .command)
                 .disabled(!aprWallpaperViewModel.readyForHeic)
             }
             CommandGroup(before: .newItem) {
-                Button(
-                    "MENU_FILE_IMPORT",
-                    action: {
-                        Task {
-                            aprWallpaperViewModel.loadImages(
-                                fromUrls: await OpenSavePanel.showOpenPanel()
-                            )
-                        }
+                Button("MENU_FILE_IMPORT", systemImage: "photo.badge.plus") {
+                    Task {
+                        aprWallpaperViewModel.loadImages(
+                            fromUrls: await OpenSavePanel.showOpenPanel()
+                        )
                     }
-                )
+                }
                 .keyboardShortcut("A", modifiers: .command)
             }
             CommandGroup(replacing: .undoRedo) {
-                Button(
-                    "MENU_EDIT_CLEAR",
-                    action: {
-                        withAnimation {
-                            aprWallpaperViewModel.darkImage = nil
-                            aprWallpaperViewModel.lightImage = nil
-                        }
+                Button("MENU_EDIT_CLEAR", systemImage: "trash") {
+                    withAnimation {
+                        aprWallpaperViewModel.darkImage = nil
+                        aprWallpaperViewModel.lightImage = nil
                     }
-                )
+                }
                 .keyboardShortcut("K", modifiers: .command)
-                Button(
-                    "MENU_EDIT_SWAP",
-                    action: {
-                        withAnimation {
-                            aprWallpaperViewModel.swapImages()
-                        }
+                Button("MENU_EDIT_SWAP", systemImage: "arrow.left.arrow.right") {
+                    withAnimation {
+                        aprWallpaperViewModel.swapImages()
                     }
-                )
+                }
                 .keyboardShortcut("E", modifiers: .command)
             }
         }
